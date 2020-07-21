@@ -26,7 +26,9 @@ object UserHolder {
 
 
     fun loginUser(login: String, password: String) : String? {
-        val _login = login?.replace("""[^+\d]""".toRegex(), "")
+        var _login  = login
+        if (login.startsWith("+7"))
+            _login = login.replace("""[^+\d]""".toRegex(), "")
         return map[_login.trim()]?.let {
             if (it.checkPassword(password)) it.userInfo
             else null
