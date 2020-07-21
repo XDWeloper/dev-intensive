@@ -1,6 +1,8 @@
 package ru.skillbranch.kotlinexample
 
 import androidx.annotation.VisibleForTesting
+import kotlin.math.log
+import ru.skillbranch.kotlinexample.UserHolder.map as map
 
 object UserHolder {
     private val map = mutableMapOf<String,User>()
@@ -23,14 +25,23 @@ object UserHolder {
             }else map[user.login] = user}
 
 
-    fun loginUser(login: String, password: String) : String? =
-        map[login.trim()]?.let {
-            if(it.checkPassword(password)) it.userInfo
+    fun loginUser(login: String, password: String) : String? {
+        val _login = login?.replace("""[^+\d]""".toRegex(), "")
+        return map[_login.trim()]?.let {
+            if (it.checkPassword(password)) it.userInfo
             else null
         }
+    }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     fun clearHolder(){
         map.clear()
+    }
+
+    fun requestAccessCode(login: String) {
+        val _login = login?.replace("""[^+\d]""".toRegex(), "")
+        val fullNmae = map[_login].also{ it.f }
+
+
     }
 }

@@ -27,10 +27,9 @@ class User private constructor(
     private var phone: String? = null
         set(value) {
             field = value?.replace("""[^+\d]""".toRegex(), "")
-            if (!field!!.startsWith("+") || field!!.length < 12)
+            if (field != null && (!field!!.startsWith("+") || field!!.length < 12))
                 throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
         }
-        get() = field
 
     private var _login: String? = null
     var login: String
