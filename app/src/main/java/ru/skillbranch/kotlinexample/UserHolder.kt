@@ -40,8 +40,11 @@ object UserHolder {
 
     fun requestAccessCode(login: String) {
         val _login = login?.replace("""[^+\d]""".toRegex(), "")
-        val fullNmae = map[_login].also{ it.f }
-
-
+        map[_login].let {
+            val newAccesseCode = it?.generateAccessCode()
+            if (newAccesseCode != null) {
+                it?.changePassword(it?.accessCode.toString(), newAccesseCode)
+            }
+        }
     }
 }
