@@ -77,6 +77,7 @@ object UserHolder {
             if(strBuff.get(3).length != 0)  phone = strBuff.getOrNull(3)
 
             registerUserBySalt(fullName,eMail,salt,hash,phone)
+            println("-------------------------------------------------------")
         }
 
         map.values.map { p ->  userList.add(p)}
