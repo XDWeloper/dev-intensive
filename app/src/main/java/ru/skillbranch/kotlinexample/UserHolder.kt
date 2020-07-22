@@ -2,6 +2,7 @@ package ru.skillbranch.kotlinexample
 
 import androidx.annotation.VisibleForTesting
 import java.util.function.BiConsumer
+import javax.xml.transform.sax.SAXSource
 import kotlin.math.log
 import ru.skillbranch.kotlinexample.UserHolder.map as map
 
@@ -34,6 +35,10 @@ object UserHolder {
 
     fun loginUser(login: String, password: String) : String? {
         var _login  = login
+        map.forEach{ it?.also { println(it.value.userInfo)
+            println("----------------------------------------")
+        }}
+
         println("---------------------------------------------------")
         println("login = $_login")
         println("map.size = "+ map.size)
