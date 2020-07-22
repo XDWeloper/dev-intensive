@@ -77,7 +77,6 @@ class User private constructor(
                 hash: String?) : this(firstName, lastName,email = email,rawPhone = phone, meta = mapOf("src" to "csv")) {
         this.salt = salt
         passwordHash = hash!!
-        accessCode = generateAccessCode()
     }
 
 
