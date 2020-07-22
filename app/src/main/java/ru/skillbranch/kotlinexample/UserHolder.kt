@@ -29,25 +29,29 @@ object UserHolder {
     fun registerUserBySalt(fullName: String?, email: String?, salt: String?, hash:String?, phone: String?
     ): User = User.makeUser(fullName!!, email = email, password = null, phone = phone, salt = salt, hash = hash)
         .also { user ->
-            map[user.login] = user
+            if(map.containsKey(user.login)) {
+                throw IllegalArgumentException("A user with this login already exists")
+            }else map[user.login] = user
         }
 
 
     fun loginUser(login: String, password: String) : String? {
         var _login  = login
-        map.forEach{ it?.also { println(it.value.userInfo)
-            println("----------------------------------------")
-        }}
+//        map.forEach{ it?.also { println(it.value.userInfo)
+//            println("----------------------------------------")
+//        }}
 
+        if (login.startsWith("+7")) {
+            _login = login.replace("""[^+\d]""".toRegex(), "")
+        }
         println("---------------------------------------------------")
         println("login = $_login")
         println("map.size = "+ map.size)
         println("password = "+ password)
-        if (login.startsWith("+7"))
-            _login = login.replace("""[^+\d]""".toRegex(), "")
+
         return map[_login.trim()]?.let {
             println("userInfo = ${it.userInfo}")
-            if (it.checkPassword(password)) it.userInfo.also { println(it) }
+            if (it.checkPassword(password)) it.userInfo.also { println("reult = $it") }
             else null
         }
     }
