@@ -63,7 +63,9 @@ object UserHolder {
         list?.forEach {
             val strBuff: List<String> = it?.split(";")
             val fullName: String? = strBuff.getOrNull(0)?.trim()
-            val eMail: String? = strBuff.getOrNull(1)?.trim()
+            var eMail: String? = null
+            if(strBuff.getOrNull(1)?.trim()?.length != 0)
+                eMail = strBuff.getOrNull(1)?.trim()
             val salt_hash : String? = strBuff.getOrNull(2)?.trim()
             var salt: String? = null
             var hash: String? = null
