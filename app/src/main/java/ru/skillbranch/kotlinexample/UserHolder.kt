@@ -37,9 +37,12 @@ object UserHolder {
 
     fun loginUser(login: String, password: String) : String? {
         var _login  = login
-//        map.forEach{ it?.also { println(it.value.userInfo)
-//            println("----------------------------------------")
-//        }}
+        map.forEach{ it?.also {
+            println(it.value.userInfo)
+            println("password = ${it.value.accessCode}")
+            println("login = ${it.key}")
+            println("----------------------------------------")
+        }}
 
         if (login.startsWith("+7")) {
             _login = login.replace("""[^+\d]""".toRegex(), "")
