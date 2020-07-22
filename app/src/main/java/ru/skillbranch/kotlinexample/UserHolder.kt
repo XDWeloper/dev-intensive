@@ -35,9 +35,11 @@ object UserHolder {
     fun loginUser(login: String, password: String) : String? {
         var _login  = login
         println("login = $_login")
+        println("map.size = "+ map.size)
         if (login.startsWith("+7"))
             _login = login.replace("""[^+\d]""".toRegex(), "")
         return map[_login.trim()]?.let {
+            println("userInfo = ${it.userInfo}")
             if (it.checkPassword(password)) it.userInfo
             else null
         }
