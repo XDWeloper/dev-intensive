@@ -34,6 +34,7 @@ object UserHolder {
 
     fun loginUser(login: String, password: String) : String? {
         var _login  = login
+        println("---------------------------------------------------")
         println("login = $_login")
         println("map.size = "+ map.size)
         println("password = "+ password)
@@ -41,7 +42,7 @@ object UserHolder {
             _login = login.replace("""[^+\d]""".toRegex(), "")
         return map[_login.trim()]?.let {
             println("userInfo = ${it.userInfo}")
-            if (it.checkPassword(password)) it.userInfo
+            if (it.checkPassword(password)) it.userInfo.also { println(it) }
             else null
         }
     }
