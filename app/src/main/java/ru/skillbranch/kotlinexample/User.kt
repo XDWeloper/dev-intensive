@@ -27,7 +27,7 @@ class User private constructor(
     private var phone: String? = null
         set(value) {
             field = value?.replace("""[^+\d]""".toRegex(), "")
-            if (field != null && (!field!!.startsWith("+") || field!!.length < 12))
+            if (!field.isNullOrEmpty()  && (!field!!.startsWith("+") || field!!.length < 12))
                 throw IllegalArgumentException("Enter a valid phone number starting with a + and containing 11 digits")
         }
 
@@ -68,6 +68,18 @@ class User private constructor(
         accessCode = code
         //sendAccessCodeToUser(rawPhone, code)
     }
+    //For salt and Hash
+    constructor(firstName: String,
+                lastName: String?,
+                email: String?,
+                phone: String?,
+                salt: String?,
+                hash: String?) : this(firstName, lastName,email = email,rawPhone = phone, meta = mapOf("src" to "csv")) {
+        this.salt = salt
+        passwordHash = hash!!
+        accessCode = generateAccessCode()
+    }
+
 
     init {
         println("First init block? primary constructor was called")
@@ -132,15 +144,16 @@ class User private constructor(
             fullName: String,
             email: String? = null,
             password: String? = null,
-            phone: String? = null
+            phone: String? = null,
+            salt: String? = null,
+            hash: String? = null
         ): User {
             val (firstName, lastName) = fullName.fullNameToPair()
 
             return when {
+                !salt.isNullOrBlank() && !hash.isNullOrBlank() -> User (firstName, lastName,  email, phone, salt, hash)
                 !phone.isNullOrBlank() -> User(firstName, lastName,phone)
-                !email.isNullOrBlank() && !password.isNullOrBlank() -> User(
-                    firstName, lastName,  email, password
-                )
+                !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName,  email, password)
                 else -> throw java.lang.IllegalArgumentException("Email or phone must be null or blank")
             }
         }
@@ -158,6 +171,7 @@ class User private constructor(
                     }
                 }
     }
+
 }
 
 
