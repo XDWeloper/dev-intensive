@@ -150,6 +150,13 @@ class User private constructor(
         ): User {
             val (firstName, lastName) = fullName.fullNameToPair()
 
+            println("fullName = $fullName")
+            println("email = $email")
+            println("password = $password")
+            println("phone = $phone")
+            println("salt = $salt")
+            println("hash = $hash")
+
             return when {
                 !salt.isNullOrBlank() && !hash.isNullOrBlank() -> User (firstName, lastName,  email, phone, salt, hash)
                 !phone.isNullOrBlank() -> User(firstName, lastName,phone)
