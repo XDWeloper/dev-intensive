@@ -36,6 +36,7 @@ object UserHolder {
         var _login  = login
         println("login = $_login")
         println("map.size = "+ map.size)
+        println("password = "+ password)
         if (login.startsWith("+7"))
             _login = login.replace("""[^+\d]""".toRegex(), "")
         return map[_login.trim()]?.let {
