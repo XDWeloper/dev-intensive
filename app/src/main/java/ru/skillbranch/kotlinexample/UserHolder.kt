@@ -37,7 +37,7 @@ object UserHolder {
 
 
     fun loginUser(login: String, password: String) : String? {
-        var _login  = login
+        var _login  = login.trim()
         println("loginUser --------------------------------------")
         map.forEach{ it?.also {
             println(it.value.userInfo)
@@ -54,7 +54,7 @@ object UserHolder {
         println("map.size = "+ map.size)
         println("password = "+ password)
 
-        return map[_login.trim()]?.let {
+        return map[_login]?.let {
             println("userInfo = ${it.userInfo}")
             if (it.checkPassword(password)) it.userInfo.also {
                 println("reult = $it")

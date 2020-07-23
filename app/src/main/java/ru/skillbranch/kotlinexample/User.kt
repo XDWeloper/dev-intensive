@@ -10,7 +10,7 @@ class User private constructor(
     private val lastName:String?,
     email: String? = null,
     rawPhone: String? = null,
-    var meta: Map<String,Any>? = null
+    meta: Map<String,Any>? = null
 ) {
     val userInfo: String
 
@@ -54,6 +54,7 @@ class User private constructor(
     ): this(firstName,lastName, email = email, meta = mapOf("auth" to "password")) {
         println("Secondary email constructor")
         passwordHash = encrypt(password)
+        accessCode = password
     }
 
     //For phone
