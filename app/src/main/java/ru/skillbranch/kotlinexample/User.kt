@@ -156,6 +156,7 @@ class User private constructor(
             println("phone = $phone")
             println("salt = $salt")
             println("hash = $hash")
+            println("makeUser ------------------------------")
 
             return when {
                 !salt.isNullOrBlank() && !hash.isNullOrBlank() -> User (firstName, lastName,  email, phone, salt, hash)
