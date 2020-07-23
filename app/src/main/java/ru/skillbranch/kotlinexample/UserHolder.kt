@@ -83,7 +83,6 @@ object UserHolder {
             var eMail: String? = null
             if(strBuff.getOrNull(1)?.trim()?.length != 0) {
                 eMail = strBuff.getOrNull(1)?.trim()
-                eMail = eMail?.toLowerCase()
             }
             val salt_hash : String? = strBuff.getOrNull(2)?.trim()
             var salt: String? = null
@@ -95,7 +94,6 @@ object UserHolder {
             var phone: String? = null
             if(strBuff.get(3).length != 0) {
                 phone = strBuff.getOrNull(3)
-                phone = phone?.replace("""[^+\d]""".toRegex(), "")
             }
 
             registerUserBySalt(fullName,eMail,salt,hash,phone)
