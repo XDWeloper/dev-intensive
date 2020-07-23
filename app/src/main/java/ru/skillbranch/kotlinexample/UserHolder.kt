@@ -100,7 +100,7 @@ object UserHolder {
 
         userList = map.values.toMutableList()
         println("userList------------------------------------------------")
-        userList.let {
+        userList.forEach{
             println(it)
         }
         println("userList------------------------------------------------")
