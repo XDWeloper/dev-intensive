@@ -1,10 +1,6 @@
 package ru.skillbranch.kotlinexample
 
 import androidx.annotation.VisibleForTesting
-import java.util.function.BiConsumer
-import javax.xml.transform.sax.SAXSource
-import kotlin.math.log
-import ru.skillbranch.kotlinexample.UserHolder.map as map
 
 object UserHolder {
     private val map = mutableMapOf<String,User>()
@@ -103,6 +99,11 @@ object UserHolder {
         }
 
         userList = map.values.toMutableList()
+        println("userList------------------------------------------------")
+        userList.let {
+            println(it)
+        }
+        println("userList------------------------------------------------")
         return userList
     }
 }
