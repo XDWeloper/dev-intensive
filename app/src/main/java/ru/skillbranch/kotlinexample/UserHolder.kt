@@ -75,6 +75,7 @@ object UserHolder {
     }
 
     fun importUsers(list: List<String>): List<User>{
+        map.clear()
         var userList : MutableList<User> = mutableListOf()
         list?.forEach {
             val strBuff: List<String> = it?.split(";")
@@ -101,7 +102,8 @@ object UserHolder {
         userList = map.values.toMutableList()
         println("userList------------------------------------------------")
         userList.forEach{
-            println(it)
+            println(it.userInfo)
+            println("------------")
         }
         println("userList------------------------------------------------")
         return userList
