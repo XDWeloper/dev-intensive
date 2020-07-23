@@ -30,7 +30,8 @@ object UserHolder {
     ): User = User.makeUser(fullName!!, email = email, password = null, phone = phone, salt = salt, hash = hash)
         .also { user ->
             if(map.containsKey(user.login)) {
-                throw IllegalArgumentException("A user with this login already exists")
+                map.remove(user.login)
+                map.put(user.login, user)
             }else map[user.login] = user
         }
 
@@ -80,8 +81,10 @@ object UserHolder {
             val strBuff: List<String> = it?.split(";")
             val fullName: String? = strBuff.getOrNull(0)?.trim()
             var eMail: String? = null
-            if(strBuff.getOrNull(1)?.trim()?.length != 0)
+            if(strBuff.getOrNull(1)?.trim()?.length != 0) {
                 eMail = strBuff.getOrNull(1)?.trim()
+                eMail = eMail?.toLowerCase()
+            }
             val salt_hash : String? = strBuff.getOrNull(2)?.trim()
             var salt: String? = null
             var hash: String? = null
@@ -90,15 +93,15 @@ object UserHolder {
                 hash = salt_hash.split(":").getOrNull(1)
             }
             var phone: String? = null
-            if(strBuff.get(3).length != 0)  phone = strBuff.getOrNull(3)
+            if(strBuff.get(3).length != 0) {
+                phone = strBuff.getOrNull(3)
+                phone = phone?.replace("""[^+\d]""".toRegex(), "")
+            }
 
             registerUserBySalt(fullName,eMail,salt,hash,phone)
-            println("-------------------------------------------------------")
         }
 
-        map.values.map { p ->  userList.add(p)}
-
-
+        userList = map.values.toMutableList()
         return userList
     }
 }

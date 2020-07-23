@@ -10,7 +10,7 @@ class User private constructor(
     private val lastName:String?,
     email: String? = null,
     rawPhone: String? = null,
-    meta: Map<String,Any>? = null
+    var meta: Map<String,Any>? = null
 ) {
     val userInfo: String
 
@@ -40,6 +40,7 @@ class User private constructor(
 
     private var salt: String? = null
     private lateinit var passwordHash: String
+
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     var accessCode: String? = null
@@ -158,8 +159,8 @@ class User private constructor(
 
             return when {
                 !salt.isNullOrBlank() && !hash.isNullOrBlank() -> User (firstName, lastName,  email, phone, salt, hash)
-                !phone.isNullOrBlank() -> User(firstName, lastName,phone)
                 !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName, lastName,  email, password)
+                !phone.isNullOrBlank() -> User(firstName, lastName,phone)
                 else -> throw java.lang.IllegalArgumentException("Email or phone must be null or blank")
             }
         }
