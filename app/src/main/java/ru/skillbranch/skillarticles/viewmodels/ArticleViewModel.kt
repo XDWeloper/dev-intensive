@@ -13,6 +13,7 @@ class ArticleViewModel (private val articleId: String): BaseViewModel<ArticleSta
     private val repository = ArticleRepository
     private var menuIsShow: Boolean = false
 
+
     init {
         subscribeOnDataSource(getArticleData()) { article, state ->
             article ?: return@subscribeOnDataSource null
@@ -69,7 +70,6 @@ class ArticleViewModel (private val articleId: String): BaseViewModel<ArticleSta
     }
 
     override fun handleSearchMode(isSearch: Boolean) {
-        TODO("Not yet implemented")
     }
 
     override fun handleSearch(query: String?) {

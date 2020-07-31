@@ -19,7 +19,7 @@
         style="@style/ArticleToolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:logo="@drawable/logo_placeholder"
+        app:logo="@drawable/logo"
         app:title="@string/app_name"
         app:subtitle="loading..."
         app:layout_scrollFlags="scroll|enterAlwaysCollapsed"
