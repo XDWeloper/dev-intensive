@@ -1,18 +1,22 @@
 package ru.skillbranch.skillarticles.ui.custom.behaviors
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
 import kotlinx.android.synthetic.main.activity_root.*
+import ru.skillbranch.skillarticles.ui.RootActivity
 import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
+import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 
 class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
 
-    lateinit var articleSubmenu : ArticleSubmenu
+    private var articleSubMenu : ArticleSubmenu? = null
+    private var viewModel : ArticleViewModel? = null
+
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -22,6 +26,13 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         axes: Int,
         type: Int
     ): Boolean {
+        if(articleSubMenu == null)
+            articleSubMenu = if (coordinatorLayout.childCount > 2) coordinatorLayout.getChildAt(2) as ArticleSubmenu else null
+        if(viewModel == null) {
+            val rootActivity = coordinatorLayout.context as RootActivity
+            viewModel = rootActivity.getViewModel()
+        }
+
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
@@ -35,6 +46,12 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         type: Int
     ) {
 
+        if(articleSubMenu!= null && dy > 0 && viewModel!!.currentState.isShowMenu){
+            articleSubMenu!!.close()
+        }
+        if(articleSubMenu!= null && dy < 0 && viewModel!!.currentState.isShowMenu){
+            articleSubMenu!!.open()
+        }
 
         child.translationY = MathUtils.clamp(child.translationY.plus(dy) , 0f, child.minHeight.toFloat())
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
