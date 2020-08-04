@@ -57,6 +57,7 @@
         android:theme="@style/ArticleBarsTheme"
         android:elevation="4dp"
         app:layout_insetEdge="bottom"
-        android:minHeight="50dp"/>
+        android:minHeight="50dp"
+        android:visibility="visible"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
