@@ -2,12 +2,17 @@ package ru.skillbranch.skillarticles.ui.custom.behaviors
 
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
+import kotlinx.android.synthetic.main.activity_root.*
+import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
 
 class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
+
+    lateinit var articleSubmenu : ArticleSubmenu
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -29,6 +34,8 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         consumed: IntArray,
         type: Int
     ) {
+
+
         child.translationY = MathUtils.clamp(child.translationY.plus(dy) , 0f, child.minHeight.toFloat())
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
     }
