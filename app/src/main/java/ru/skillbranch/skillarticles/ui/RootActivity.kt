@@ -33,8 +33,8 @@ class RootActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this,vmFactory).get(ArticleViewModel::class.java)
         viewModel.observeState(this){
             renderUi(it)
-            if(!it.isSearch)
-                setupToolbar()
+//            if(!it.isSearch)
+//                setupToolbar()
         }
 
         viewModel.observeNotifications(this){
