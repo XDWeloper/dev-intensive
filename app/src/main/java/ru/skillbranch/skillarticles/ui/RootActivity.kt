@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Menu
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
@@ -39,6 +40,7 @@ class RootActivity : AppCompatActivity() {
         viewModel.observeNotifications(this){
             renderNotification(it)
         }
+
     }
 
     private fun setupToolbar() {
@@ -52,6 +54,7 @@ class RootActivity : AppCompatActivity() {
             it.marginEnd = dpToIntPx(16)
             logo.layoutParams = it
         }
+
     }
 
     private fun renderUi(data: ArticleState) {
@@ -135,7 +138,6 @@ class RootActivity : AppCompatActivity() {
                 viewModel.handleSearchQuery(newText)
                 return true
             }
-
         })
 
         if(viewModel.currentState.isSearch){
@@ -146,6 +148,7 @@ class RootActivity : AppCompatActivity() {
 
         return super.onCreateOptionsMenu(menu)
     }
+
 
 
 }
