@@ -50,7 +50,10 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
             articleSubMenu!!.open()
         }
 
-        child.translationY = MathUtils.clamp(child.translationY.plus(dy) , 0f, child.minHeight.toFloat())
+        val offset = MathUtils.clamp(child.translationY.plus(dy) , -0f, child.minHeight.toFloat())
+        if (offset != child.translationY) child.translationY = offset
+
+        //child.translationY = MathUtils.clamp(child.translationY.plus(dy) , -15f, child.minHeight.toFloat())
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
     }
 }
