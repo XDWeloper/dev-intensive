@@ -4,16 +4,10 @@ import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
-import ru.skillbranch.skillarticles.ui.RootActivity
-import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
 import ru.skillbranch.skillarticles.ui.custom.Bottombar
-import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 
-class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
 
-    private var articleSubMenu : ArticleSubmenu? = null
-    private var viewModel : ArticleViewModel? = null
-
+class BottombarBehavior() : CoordinatorLayout.Behavior<Bottombar>() {
 
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -23,13 +17,6 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         axes: Int,
         type: Int
     ): Boolean {
-        if(articleSubMenu == null)
-            articleSubMenu = if (coordinatorLayout.childCount > 2) coordinatorLayout.getChildAt(2) as ArticleSubmenu else null
-        if(viewModel == null) {
-            val rootActivity = coordinatorLayout.context as RootActivity
-            viewModel = rootActivity.getViewModel()
-        }
-
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
@@ -42,18 +29,10 @@ class BottombarBehavior : CoordinatorLayout.Behavior<Bottombar>() {
         consumed: IntArray,
         type: Int
     ) {
-
-//        if(articleSubMenu!= null && dy > 0 && viewModel!!.currentState.isShowMenu){
-//            articleSubMenu!!.close()
-//        }
-        if(articleSubMenu!= null && dy < 0 && viewModel!!.currentState.isShowMenu){
-            articleSubMenu!!.open()
+        if(!child.isSearchMode){
+            val offset = MathUtils.clamp(child.translationY + dy, 0f, child.height.toFloat())
+            if (offset != child.translationY) child.translationY = offset
         }
-
-//        val offset = MathUtils.clamp(child.translationY.plus(dy) , -0f, child.minHeight.toFloat())
-//        if (offset != child.translationY) child.translationY = offset
-
-        child.translationY = MathUtils.clamp(child.translationY.plus(dy) , 0f, child.minHeight.toFloat())
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
     }
 }

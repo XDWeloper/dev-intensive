@@ -2,6 +2,7 @@ package ru.skillbranch.skillarticles.ui.custom.behaviors
 
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.math.MathUtils
 import androidx.core.view.ViewCompat
 import ru.skillbranch.skillarticles.ui.RootActivity
 import ru.skillbranch.skillarticles.ui.custom.ArticleSubmenu
@@ -39,12 +40,20 @@ class SubmenuBehavior : CoordinatorLayout.Behavior<ArticleSubmenu>() {
         type: Int
     ) {
 
-        if(dy > 0 && viewModel!!.currentState.isShowMenu){
-            child.close()
-        }
-        if(dy < 0 && viewModel!!.currentState.isShowMenu){
-            child.open()
+//        if(dy > 0 && viewModel!!.currentState.isShowMenu){
+//            child.close()
+//        }
+//        if(dy < 0 && viewModel!!.currentState.isShowMenu){
+//            child.open()
+//        }
+
+        if(child.isOpen){
+            val offset = MathUtils.clamp(child.translationX + dy * 4 , 0f, child.width.toFloat())
+            if (offset != child.translationX) child.translationX = offset
         }
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
+
+
+//        super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
     }
 }
