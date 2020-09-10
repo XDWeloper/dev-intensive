@@ -51,7 +51,7 @@ class RootActivity :BaseActivity<ArticleViewModel>(), IArticleView{
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val bgColor by AttrValue(R.attr.colorSecondary)
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val fgColor by AttrValue(R.attr.colorSecondary)
+    val fgColor by AttrValue(R.attr.colorOnPrimary)
 
     override fun setupViews() {
         setupToolbar()
@@ -121,33 +121,6 @@ class RootActivity :BaseActivity<ArticleViewModel>(), IArticleView{
 
     }
 
-    private fun renderUi(data: ArticleState) {
-        if(data.isSearch) showSearchBar() else hideSearchBar()
-
-        btn_settings.isChecked = data.isShowMenu
-        if(data.isShowMenu) submenu.open() else submenu.close()
-
-        btn_like.isChecked = data.isLike
-        btn_bookmark.isChecked = data.isBookmark
-
-        switch_mode.isChecked = data.isDarkMode
-        delegate.localNightMode = if(data.isDarkMode) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        if(data.isBigText){
-            tv_text_content.textSize = 18f
-            btn_text_up.isChecked = true
-            btn_text_down.isChecked = false
-        } else {
-            tv_text_content.textSize = 14f
-            btn_text_up.isChecked = false
-            btn_text_down.isChecked = true
-        }
-
-        tv_text_content.text = if(data.isLoadingContent) "loading" else data.content.first() as String
-
-        toolbar.title = data.title ?: "Skill Articles"
-        toolbar.subtitle = data.category ?: "loadding..."
-        if(data.categoryIcon != null) toolbar.logo = getDrawable(data.categoryIcon as Int)
-    }
 
     override fun renderNotification(notify: Notify) {
         val snackbar = Snackbar.make(coordinator_container, notify.message,Snackbar.LENGTH_LONG)

@@ -6,6 +6,8 @@ fun String?.indexesOf(substr: String, ignoreCase: Boolean = true): List<Int> {
 
     val resList = mutableListOf<Int>()
 
+    if(this == null || substr.isEmpty() ) return resList
+
     val posList = this
         ?.replace(substr, "***$$$~~~", ignoreCase)
         ?.split("***$$$~~~")

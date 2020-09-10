@@ -22,11 +22,6 @@ class SubmenuBehavior : CoordinatorLayout.Behavior<ArticleSubmenu>() {
         type: Int
     ): Boolean {
 
-        if(viewModel == null) {
-            val rootActivity = coordinatorLayout.context as RootActivity
-            viewModel = rootActivity.getViewModel()
-        }
-
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
@@ -39,13 +34,6 @@ class SubmenuBehavior : CoordinatorLayout.Behavior<ArticleSubmenu>() {
         consumed: IntArray,
         type: Int
     ) {
-
-//        if(dy > 0 && viewModel!!.currentState.isShowMenu){
-//            child.close()
-//        }
-//        if(dy < 0 && viewModel!!.currentState.isShowMenu){
-//            child.open()
-//        }
 
         if(child.isOpen){
             val offset = MathUtils.clamp(child.translationX + dy * 4 , 0f, child.width.toFloat())
