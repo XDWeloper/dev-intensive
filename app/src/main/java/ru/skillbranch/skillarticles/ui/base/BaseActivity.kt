@@ -3,6 +3,7 @@ package ru.skillbranch.skillarticles.ui.base
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import ru.skillbranch.skillarticles.viewmodels.ArticleViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.BaseViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
 import ru.skillbranch.skillarticles.viewmodels.base.Notify
@@ -38,7 +39,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         binding.restoreUi(savedInstanceState)
     }
 
-    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<out ViewModel> = ViewModelDelegate(BaseViewModel::class.java, arg)
+    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<ArticleViewModel> = ViewModelDelegate(ArticleViewModel::class.java , arg)
 
 }
 
