@@ -38,7 +38,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         binding.restoreUi(savedInstanceState)
     }
 
-    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<out ViewModel> = ViewModelDelegate(viewModel::class.java, arg)
+    internal inline fun provideViewModel(arg : Any?) : ViewModelDelegate<out ViewModel> = ViewModelDelegate(ViewModel::class.java, arg)
 
 }
 
