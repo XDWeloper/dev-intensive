@@ -12,12 +12,12 @@ class PrefDelegate<T>(private val defaultValue: T) : ReadWriteProperty<PrefManag
         println("getValue $property.name")
         println("---------------------------")
         val ret = when(value){
-            is Boolean -> {thisRef.preferences.getBoolean(property.name, false); println(" type = Boolean")}
-            is String -> {thisRef.preferences.getString(property.name, ""); println(" type = String")}
-            is Long -> {thisRef.preferences.getLong(property.name, 0); println(" type = Long")}
-            is Float -> {thisRef.preferences.getFloat(property.name, 0f); println(" type = Float")}
-            is Int -> {thisRef.preferences.getInt(property.name, 0); println(" type = Int")}
-            else ->    {null; println(" type = nothing")}
+            is Boolean -> {println(" type = Boolean"); thisRef.preferences.getBoolean(property.name, false) }
+            is String -> {println(" type = String"); thisRef.preferences.getString(property.name, "") }
+            is Long -> {println(" type = Long"); thisRef.preferences.getLong(property.name, 0) }
+            is Float -> {println(" type = Float"); thisRef.preferences.getFloat(property.name, 0f) }
+            is Int -> {println(" type = Int"); thisRef.preferences.getInt(property.name, 0) }
+            else ->    {println(" type = nothing"); null }
         }?.let{ it as T }
         println(" ret = $ret")
         return ret
