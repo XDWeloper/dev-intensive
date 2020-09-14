@@ -26,5 +26,13 @@ class PrefDelegate<T>(private val defaultValue: T) : ReadWriteProperty<PrefManag
     override fun setValue(thisRef: PrefManager, property: KProperty<*>, value: T?) {
         println("set val = $value")
         this.value = value
+        when(value){
+            is Boolean -> thisRef.preferences.edit().putBoolean(property.name, value)
+            is String -> thisRef.preferences.edit().putString(property.name, value)
+            is Long -> thisRef.preferences.edit().putLong(property.name, value)
+            is Float -> thisRef.preferences.edit().putFloat(property.name, value)
+            is Int -> thisRef.preferences.edit().putInt(property.name, value)
+        }
+
     }
 }
