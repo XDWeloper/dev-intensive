@@ -46,7 +46,7 @@ class RootActivity : BaseActivity<ArticleViewModel>(), IArticleView {
         ViewModelProvider(this, vmFactory).get(ArticleViewModel::class.java)
     }
 
-    //val vm by provideViewModel("0")
+   // val vm: ArticleViewModel by provideViewModel("0")
 
 
     @VisibleForTesting(otherwise = VisibleForTesting.PROTECTED)
