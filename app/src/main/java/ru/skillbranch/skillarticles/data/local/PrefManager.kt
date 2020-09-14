@@ -17,6 +17,7 @@ class PrefManager(context: Context) {
 
 
     fun clearAll() {
+        println("clearAll")
         preferences.all.clear()
     }
 }

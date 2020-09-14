@@ -9,17 +9,22 @@ class PrefDelegate<T>(private val defaultValue: T) : ReadWriteProperty<PrefManag
     private var value: T? = defaultValue
 
     override fun getValue(thisRef: PrefManager, property: KProperty<*>): T? {
-        return when(value){
-            is Boolean -> thisRef.preferences.getBoolean(property.name,false)
-            is String -> thisRef.preferences.getString(property.name,"")
-            is Long -> thisRef.preferences.getLong(property.name,0)
-            is Float -> thisRef.preferences.getFloat(property.name,0f)
-            is Int -> thisRef.preferences.getInt(property.name,0)
-            else -> null
+        println("getValue $property.name")
+        println("---------------------------")
+        val ret = when(value){
+            is Boolean -> {thisRef.preferences.getBoolean(property.name, false); println(" type = Boolean")}
+            is String -> {thisRef.preferences.getString(property.name, ""); println(" type = String")}
+            is Long -> {thisRef.preferences.getLong(property.name, 0); println(" type = Long")}
+            is Float -> {thisRef.preferences.getFloat(property.name, 0f); println(" type = Float")}
+            is Int -> {thisRef.preferences.getInt(property.name, 0); println(" type = Int")}
+            else ->    {null; println(" type = nothing")}
         }?.let{ it as T }
+        println(" ret = $ret")
+        return ret
     }
 
     override fun setValue(thisRef: PrefManager, property: KProperty<*>, value: T?) {
+        println("set val = $value")
         this.value = value
     }
 }
