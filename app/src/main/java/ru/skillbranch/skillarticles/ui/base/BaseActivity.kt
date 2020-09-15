@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.preference.PreferenceFragmentCompat
+import ru.skillbranch.skillarticles.data.delegates.PrefDelegate
 import ru.skillbranch.skillarticles.data.local.PrefManager
 import ru.skillbranch.skillarticles.viewmodels.base.BaseViewModel
 import ru.skillbranch.skillarticles.viewmodels.base.IViewModelState
@@ -26,7 +27,8 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         binding.onFinishInflate()
         viewModel.observeState(this){binding.bind(it)}
         viewModel.observeNotifications(this){renderNotification(it)}
-        val pm: PrefManager = PrefManager(this)
+        //val pm: PrefManager = PrefManager(this)
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

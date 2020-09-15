@@ -8,14 +8,13 @@ class PrefManager(context: Context) {
 
     val preferences  = PreferenceManager.getDefaultSharedPreferences(context)
 
-    var storedBoolean by PrefDelegate(false)
-    var storedString by PrefDelegate("")
-    var storedFloat by PrefDelegate(0f)
-    var storedInt by PrefDelegate(0)
-    var storedLong by PrefDelegate(0)
-
+//        val storedBoolean by PrefDelegate(false)
+//        val storedString by PrefDelegate("")
+//        val storedFloat by PrefDelegate(0f)
+//        val storedInt by PrefDelegate(0)
+//        val storedLong by PrefDelegate(0)
 
     fun clearAll() {
-        preferences.edit().clear()
+        preferences.all.clear()
     }
 }

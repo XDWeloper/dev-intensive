@@ -9,7 +9,7 @@ class PrefDelegate<T>(private val defaultValue: T) : ReadWriteProperty<PrefManag
     private var value: T? = defaultValue
 
     override fun getValue(thisRef: PrefManager, property: KProperty<*>): T? {
-        val ret = when(value){
+        return when(value){
             is Boolean ->  thisRef.preferences.getBoolean(property.name, false)
             is String ->  thisRef.preferences.getString(property.name, "")
             is Long ->  thisRef.preferences.getLong(property.name, 0)
@@ -17,17 +17,16 @@ class PrefDelegate<T>(private val defaultValue: T) : ReadWriteProperty<PrefManag
             is Int ->  thisRef.preferences.getInt(property.name, 0)
             else ->    null
         }?.let{ it as T }
-        return ret
     }
 
     override fun setValue(thisRef: PrefManager, property: KProperty<*>, value: T?) {
         this.value = value
         when(value){
-            is Boolean -> thisRef.preferences.edit().putBoolean(property.name, value)
-            is String -> thisRef.preferences.edit().putString(property.name, value)
-            is Long -> thisRef.preferences.edit().putLong(property.name, value)
-            is Float -> thisRef.preferences.edit().putFloat(property.name, value)
-            is Int -> thisRef.preferences.edit().putInt(property.name, value)
+            is Boolean -> thisRef.preferences.edit().putBoolean(property.name, value as Boolean)
+            is String -> thisRef.preferences.edit().putString(property.name, value as String)
+            is Long -> thisRef.preferences.edit().putLong(property.name, value as Long)
+            is Float -> thisRef.preferences.edit().putFloat(property.name, value as Float)
+            is Int -> thisRef.preferences.edit().putInt(property.name, value as Int)
         }
 
     }
