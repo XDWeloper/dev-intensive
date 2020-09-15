@@ -1,13 +1,12 @@
 package ru.skillbranch.skillarticles.data.local
 
 import android.content.Context
-import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import ru.skillbranch.skillarticles.data.delegates.PrefDelegate
 
 class PrefManager(context: Context) {
 
-    val preferences : SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    val preferences  = PreferenceManager.getDefaultSharedPreferences(context)
 
     var storedBoolean by PrefDelegate(false)
     var storedString by PrefDelegate("")
@@ -17,7 +16,6 @@ class PrefManager(context: Context) {
 
 
     fun clearAll() {
-        println("clearAll")
-        preferences.all.clear()
+        preferences.edit().clear()
     }
 }
