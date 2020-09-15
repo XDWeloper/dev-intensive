@@ -13,6 +13,13 @@ class PrefManager(context: Context) {
 //        var storedFloat by PrefDelegate(0f)
 //        var storedInt by PrefDelegate(0)
 //        var storedLong by PrefDelegate(0)
+//
+//    init {
+//        val stor = storedBoolean
+//        storedString = "test"
+//        val sss = storedString
+//        val i =0
+//    }
 
 
     fun clearAll() {
