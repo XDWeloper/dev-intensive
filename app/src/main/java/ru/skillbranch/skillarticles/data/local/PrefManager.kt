@@ -14,6 +14,7 @@ class PrefManager(context: Context) {
 //        val storedInt by PrefDelegate(0)
 //        val storedLong by PrefDelegate(0)
 
+
     fun clearAll() {
         preferences.all.clear()
     }
