@@ -27,7 +27,7 @@ abstract class BaseActivity<T : BaseViewModel<out IViewModelState>> : AppCompatA
         binding.onFinishInflate()
         viewModel.observeState(this){binding.bind(it)}
         viewModel.observeNotifications(this){renderNotification(it)}
-        //val pm: PrefManager = PrefManager(this)
+        val pm: PrefManager = PrefManager(this)
 
     }
 
