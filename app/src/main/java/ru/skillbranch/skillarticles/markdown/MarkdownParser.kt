@@ -12,7 +12,7 @@ object MarkdownParser {
     private const val QUOTE_GROUP = "(^> .+?$)"
     private const val ITALIC_GROUP = "((?<!\\*)\\*[^*].*?[^*]?\\*(?!\\*)|(?<!_)_[^_].*?[^_]?_(?!_))"
     private const val BOLD_GROUP = "((?<!\\*)\\*{2}[^*].*?[^*]?\\*{2}(?!\\*)|(?<!_)_{2}[^_].*?[^_]?_{2}(?!_))"
-    private const val STRIKE_GROUP = "((?<!\\~)\\~{2}[^~].~?[^~]?\\~{2}(?!\\~)|(?<!_)_{2}[^_].~?[^_]?_{2}(?!_))"
+    private const val STRIKE_GROUP = "((?<!~)~{2}[^~].*?[^~]?~{2}(?!~))"
     private const val RULE_GROUP = "(^[-_*]{3}$)"
     private const val INLINE_GROUP = "((?<!`)`[^`\\s].*?[^`\\s]?`(?!`))"
     private const val LINK_GROUP = "(\\[[^\\[\\]]*?]\\(.+?\\)|^\\[*?]\\(.*?\\))"
@@ -36,8 +36,24 @@ object MarkdownParser {
      * clear markdown text to string without markdown characters
      */
     fun clear(string: String?): String? {
-        //TODO implement me
-        return null
+
+        val elements = mutableListOf<Element>()
+        elements.addAll(findElements(string!!))
+        var result: String? = ""
+        elements.forEach {el1 ->
+            if(el1.elements.size > 0){
+                el1.elements.forEach {el2 ->
+                    if(el2.elements.size > 0){
+                        el2.elements.forEach { el3 ->
+                            result+= el3.text.toString()
+                        }
+                    }else result+= el2.text.toString()
+                }
+            }
+            else result+= el1.text.toString()
+        }
+
+        return result
     }
 
     /**
